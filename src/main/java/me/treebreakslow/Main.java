@@ -3,7 +3,7 @@ package me.treebreakslow;
 import org.bukkit.Tag;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakSpeedEvent;
+import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin implements Listener {
@@ -20,12 +20,15 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onBreakSpeed(BlockBreakSpeedEvent event) {
+    public void onBlockDamage(BlockDamageEvent event) {
 
         if (!Tag.LOGS.isTagged(event.getBlock().getType())) return;
 
-        float speed = event.getNewSpeed();
+        if (event.getInstaBreak()) return;
 
-        event.setNewSpeed((float)(speed / multiplier));
+        // уменьшает скорость ломания
+        if (multiplier > 1) {
+            event.setCancelled(true);
+        }
     }
 }
