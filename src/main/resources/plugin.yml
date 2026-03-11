@@ -1,0 +1,6 @@
+name: TreeBreakSlow
+version: 1.0
+main: me.treebreakslow.Main
+api-version: "1.21"
+author: Server
+description: Makes logs break slower
